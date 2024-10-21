@@ -50,6 +50,7 @@ app.post('/notifications', async (req, res) => {
       contents: { "en": event_description },
       included_segments: ["All"],
       content_available: true,
+      ttl : 43200 // 12 hours
     };
 
     const options = optionsBuilder("POST", "notifications", notificationBody);
@@ -85,6 +86,7 @@ const sendTodaysEventNotifications = async () => {
         contents: { "en": event.event_description },
         included_segments: ["All"],
         content_available: true,
+        ttl : 43200
       };
 
       const options = optionsBuilder("POST", "notifications", notificationBody);
@@ -105,7 +107,6 @@ cron.schedule('30 5 * * *', () => {
   scheduled: true,
 });
 
-
 // Cron job to keep the server alive
 cron.schedule('*/5 * * * *', async () => {
   
@@ -124,7 +125,6 @@ cron.schedule('*/5 * * * *', async () => {
   timezone: TIMEZONE,
   scheduled: true,
 });
-
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
