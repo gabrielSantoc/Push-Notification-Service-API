@@ -3,9 +3,11 @@ const axios = require('axios');
 const { createClient } = require('@supabase/supabase-js');
 const moment = require('moment-timezone');
 const cron = require('node-cron');
+const cors = require('cors');
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 // OneSignal configuration
 const API_KEY = "***REMOVED***";
