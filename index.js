@@ -130,7 +130,7 @@ cron.schedule('00 17 * * *', () => {
 cron.schedule('*/5 * * * *', async () => {
 
   try {
-    const response = await axios.get('http://localhost:3000/ping');
+    const response = await axios.get('https://push-notification-service-fk87.onrender.com/ping');
     if(response.status == 200) {
 
       console.log('Server pinged successfully');
@@ -145,7 +145,7 @@ cron.schedule('*/5 * * * *', async () => {
     console.error('Error pinging server:', error.message);
 
   }
-  
+
 }, {
   timezone: TIMEZONE,
   scheduled: true,
