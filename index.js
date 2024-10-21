@@ -110,7 +110,7 @@ const sendTodaysEventNotifications = async () => {
 };
 
 // Schedule daily notification at 5:30 AM
-cron.schedule('00 16 * * *', () => {
+cron.schedule('00 17 * * *', () => {
   console.log(`Cron job running at ${moment().tz(TIMEZONE).format('YYYY-MM-DD HH:mm:ss')} in PHT`);
   sendTodaysEventNotifications();
 }, {
