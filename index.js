@@ -33,29 +33,9 @@ const optionsBuilder = (method, path, body) => ({
   data: body ? body : null,
 });
 
-
 // Ping route for the cron job
 app.get("/ping", (req, res) => {
   res.status(200).send("Server is alive");
-});
-
-
-// Endpoint to get today's calendar events
-app.get('/events/today', async (req, res) => {
-  try {
-    const currentDate = getTodayDate();
-    const { data, error } = await supabase
-      .from("tbl_calendar")
-      .select("*")
-      .eq('date', currentDate)
-      .order("date", { ascending: true });
-
-    if (error) throw new Error(`Supabase error: ${error.message}`);
-
-    res.json({ message: "Today's events fetched successfully", data });
-  } catch (error) {
-    res.status(500).json({ message: "Error fetching today's events", error: error.message });
-  }
 });
 
 // Endpoint to send a notification
@@ -68,7 +48,6 @@ app.post('/notifications', async (req, res) => {
       contents: { "en": event_description },
       included_segments: ["All"],
       content_available: true,
-      small_icon: "ic_notification_icon",
     };
 
     const options = optionsBuilder("POST", "notifications", notificationBody);
@@ -104,7 +83,6 @@ const sendTodaysEventNotifications = async () => {
         contents: { "en": event.event_description },
         included_segments: ["All"],
         content_available: true,
-        small_icon: "ic_notification_icon",
       };
 
       const options = optionsBuilder("POST", "notifications", notificationBody);
@@ -117,7 +95,7 @@ const sendTodaysEventNotifications = async () => {
 };
 
 // Schedule daily notification at 5:30 AM
-cron.schedule('00 17 * * *', () => {
+cron.schedule('30 5 * * *', () => {
   console.log(`Cron job running at ${moment().tz(TIMEZONE).format('YYYY-MM-DD HH:mm:ss')} in PHT`);
   sendTodaysEventNotifications();
 }, {
@@ -128,22 +106,16 @@ cron.schedule('00 17 * * *', () => {
 
 // Cron job to keep the server alive
 cron.schedule('*/5 * * * *', async () => {
-
+  
   try {
     const response = await axios.get('https://push-notification-service-fk87.onrender.com/ping');
     if(response.status == 200) {
-
       console.log('Server pinged successfully');
-
     } else {
-
       console.error(`Failed to ping server. Status code: ${response.status}`);
-
     }
   } catch (error) {
-
     console.error('Error pinging server:', error.message);
-
   }
 
 }, {
