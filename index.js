@@ -33,6 +33,13 @@ const optionsBuilder = (method, path, body) => ({
   data: body ? body : null,
 });
 
+
+// Ping route for the cron job
+app.get("/ping", (req, res) => {
+  res.status(200).send("Server is alive");
+});
+
+
 // Endpoint to get today's calendar events
 app.get('/events/today', async (req, res) => {
   try {
@@ -118,13 +125,35 @@ cron.schedule('00 17 * * *', () => {
   scheduled: true,
 });
 
-// Start the server
+
+// Cron job to keep the server alive
+cron.schedule('*/5 * * * *', async () => {
+
+  try {
+    const response = await axios.get('http://localhost:3000/ping');
+    if(response.status == 200) {
+
+      console.log('Server pinged successfully');
+
+    } else {
+
+      console.error(`Failed to ping server. Status code: ${response.status}`);
+
+    }
+  } catch (error) {
+
+    console.error('Error pinging server:', error.message);
+
+  }
+  
+}, {
+  timezone: TIMEZONE,
+  scheduled: true,
+});
+
+
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
 
-// Keep the process alive
-setInterval(() => {
-  console.log('Process is still running...');
-}, 60000);
