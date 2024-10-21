@@ -1,0 +1,21 @@
+{
+  "name": "automated-push-notification-api",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@supabase/supabase-js": "^2.45.6",
+    "axios": "^1.7.7",
+    "express": "^4.21.1",
+    "moment-timezone": "^0.5.46",
+    "node-cron": "^3.0.3",
+    "nodemon": "^3.1.7"
+  }
+}
