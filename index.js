@@ -4,19 +4,21 @@ const { createClient } = require('@supabase/supabase-js');
 const moment = require('moment-timezone');
 const cron = require('node-cron');
 const cors = require('cors');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 // OneSignal configuration
-const API_KEY = "***REMOVED***";
-const ONESIGNAL_APP_ID = "***REMOVED***";
+const API_KEY = process.env.ONE_SINGAL_API_KEY ;
+const ONE_SIGNAL_APP_ID = process.env.ONE_SIGNAL_APP_ID;
 const BASE_URL = "https://onesignal.com/api/v1";
 
 // Supabase configuration
-const supabaseUrl = "***REMOVED***";
-const supabaseKey = "***REMOVED***";
+const supabaseUrl = process.env.SUPABASE_URL;
+const supabaseKey = process.env.SUPABASE_API_KEY;
 const supabase = createClient(supabaseUrl, supabaseKey);
 
 const TIMEZONE = 'Asia/Manila';
@@ -45,7 +47,7 @@ app.post('/notifications', async (req, res) => {
   try {
     const { event_name, event_description } = req.body;
     const notificationBody = {
-      app_id: ONESIGNAL_APP_ID,
+      app_id: ONE_SIGNAL_APP_ID,
       headings: { "en": event_name },
       contents: { "en": event_description },
       included_segments: ["All"],
@@ -81,7 +83,7 @@ const sendTodaysEventNotifications = async () => {
 
     for (const event of data) {
       const notificationBody = {
-        app_id: ONESIGNAL_APP_ID,
+        app_id: ONE_SIGNAL_APP_ID,
         headings: { "en": event.event_name },
         contents: { "en": event.event_description },
         included_segments: ["All"],
