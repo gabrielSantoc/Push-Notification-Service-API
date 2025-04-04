@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const moment = require('moment-timezone');
 const cors = require('cors');
 const dotenv = require('dotenv');
 dotenv.config();

@@ -22,8 +22,14 @@ const initializeCronJobs = ( sendTodaysEventNotifications ) => {
 
   // Schedule daily notification at 5:30 AM
   cron.schedule(config.DAILY_NOTIFICATION_TIME, () => {
-    console.log(`Cron job running at ${moment().tz(config.TIMEZONE).format('YYYY-MM-DD HH:mm:ss')} in PHT`);
-    sendTodaysEventNotifications();
+    const currentTime = moment().tz(config.TIMEZONE).format('YYYY-MM-DD HH:mm:ss');
+    console.log(`[CRON] Daily notification job triggered at ${currentTime} in ${config.TIMEZONE}`);
+
+
+    sendTodaysEventNotifications()
+    .then(() => console.log(`[CRON] Daily notification job completed at ${moment().tz(config.TIMEZONE).format('YYYY-MM-DD HH:mm:ss')}`))
+    .catch(err => console.error(`[CRON] Error in notification job: ${err.message}`));
+    
   }, {
     timezone: config.TIMEZONE,
     scheduled: true,
