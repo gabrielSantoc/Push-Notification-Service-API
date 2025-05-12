@@ -5,7 +5,7 @@ const moment = require('moment-timezone');
 const cron = require('node-cron');
 const cors = require('cors');
 const dotenv = require('dotenv');
-const logger = require('/middlewares/logger');
+const logger = require('./middlewares/logger');
 dotenv.config();
 
 const app = express();
