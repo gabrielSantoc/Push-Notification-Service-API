@@ -5,10 +5,12 @@ const moment = require('moment-timezone');
 const cron = require('node-cron');
 const cors = require('cors');
 const dotenv = require('dotenv');
+const logger = require('/middlewares/logger');
 dotenv.config();
 
 const app = express();
 app.use(express.json());
+app.use(logger());
 app.use(cors());
 
 // OneSignal configuration
