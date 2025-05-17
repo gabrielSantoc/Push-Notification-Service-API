@@ -11,4 +11,4 @@ const optionsBuilder = (method, path, body) => ({
   data: body ? body : null,
 });
 
-module.exports = optionsBuilder;
+module.exports = { optionsBuilder };

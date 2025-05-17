@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+
 dotenv.config();
 
 const config = {
@@ -31,13 +32,10 @@ const config = {
   // Cron job schedules
   cronJobs: {
     dailyNotification: '30 5 * * *', // 5:30 AM
+    // dailyNotification: '*/10 * * * * *', // 10 sec for testing
     serverPing: '*/5 * * * *', // Every 5 minutes
   },
   
-  // URLs
-  urls: {
-    serverPing: 'https://push-notification-service-fk87.onrender.com/ping',
-  }
 };
 
 module.exports = config

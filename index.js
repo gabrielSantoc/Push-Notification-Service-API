@@ -28,7 +28,7 @@ cron.schedule(config.cronJobs.dailyNotification, () => {
 // Cron job to keep the server alive
 cron.schedule(config.cronJobs.serverPing, async () => {
   try {
-    const response = await axios.get(config.urls.serverPing);
+    const response = await axios.get(`${process.env.BASE_URL}/ping`);
     if(response.status == 200) {
       console.log('Server pinged successfully');
     } else {
