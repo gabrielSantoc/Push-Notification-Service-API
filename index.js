@@ -25,22 +25,22 @@ cron.schedule(config.cronJobs.dailyNotification, () => {
   scheduled: true,
 });
 
-// Cron job to keep the server alive
-cron.schedule(config.cronJobs.serverPing, async () => {
-  try {
-    const response = await axios.get(`${process.env.BASE_URL}/ping`);
-    if(response.status == 200) {
-      console.log('Server pinged successfully');
-    } else {
-      console.error(`Failed to ping server. Status code: ${response.status}`);
-    }
-  } catch (error) {
-    console.error('Error pinging server:', error.message);
-  }
-}, {
-  timezone: config.timezone,
-  scheduled: true,
-});
+// Cron job to keep the free render hosting server awake 😅😅😅
+// cron.schedule(config.cronJobs.serverPing, async () => {
+//   try {
+//     const response = await axios.get(`${process.env.BASE_URL}/ping`);
+//     if(response.status == 200) {
+//       console.log('Server pinged successfully');
+//     } else {
+//       console.error(`Failed to ping server. Status code: ${response.status}`);
+//     }
+//   } catch (error) {
+//     console.error('Error pinging server:', error.message);
+//   }
+// }, {
+//   timezone: config.timezone,
+//   scheduled: true,
+// });
 
 app.listen(config.server.port, () => {
   console.log(`Server running on port ${config.server.port}`);
