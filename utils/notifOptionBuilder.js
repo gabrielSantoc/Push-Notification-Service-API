@@ -7,6 +7,7 @@ const optionsBuilder = (method, path, body) => ({
   headers: {
     'Content-Type': 'application/json',
     'Authorization': `Basic ${config.oneSignal.apiKey}`,
+    'notif-api-key': config.notifications.apiKey
   },
   data: body ? body : null,
 });

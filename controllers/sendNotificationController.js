@@ -1,6 +1,6 @@
 const axios = require('axios');
 const config = require('../utils/config');
-const optionsBuilder = require('../utils/notifOptionBuilder');
+const {optionsBuilder} = require('../utils/notifOptionBuilder');
 
 
 async function sendNotificationController({ event_name, event_description }) {

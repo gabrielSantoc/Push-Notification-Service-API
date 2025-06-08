@@ -26,6 +26,7 @@ const config = {
   
   // Notification settings
   notifications: {
+    apiKey: process.env.PUSH_NOTIFICATION_API_KEY,
     ttl: 43200, // 12 hours
   },
   
